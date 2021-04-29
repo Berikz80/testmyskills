@@ -64,6 +64,7 @@
             tools:text="0:59" />
 
 
+
     </LinearLayout>
 
     <View
@@ -103,89 +104,112 @@
         app:layout_constraintTop_toTopOf="@+id/sheet_for_ques"
         tools:text="Здесь мог бы быть ваш вопрос." />
 
-    <LinearLayout
-
-        android:id="@+id/linearLayout2"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
         android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/answers"
         app:layout_constraintTop_toBottomOf="@+id/sheet_for_ques"
-        app:layout_constraintBottom_toTopOf="@+id/answers">
+        tools:layout_editor_absoluteX="16dp">
 
-        <TextView
-            android:id="@+id/question_a"
+        <LinearLayout
+
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp" />
-
-        <TextView
-            android:id="@+id/question_b"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            />
+            android:elevation="9dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/answers"
+            app:layout_constraintTop_toBottomOf="@+id/sheet_for_ques">
 
-        <TextView
-            android:id="@+id/question_c"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp"/>
 
-        <TextView
-            android:id="@+id/question_d"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp"/>
+            <Button
+                android:id="@+id/button_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="@string/A"
+                android:textColor="@color/black" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/button_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="@string/b"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="@string/c"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="@string/d"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=""
+        android:background="@color/teal_700"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <LinearLayout
         android:id="@+id/answers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
+
         <Button
-            android:id="@+id/button_a"
+            android:id="@+id/fifty_fifty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/A"
+            android:text="50/50"
             android:layout_weight="1"
             android:layout_margin="8dp"
             android:backgroundTint="@color/white"
             android:textColor="@color/black"/>
 
         <Button
-            android:id="@+id/button_b"
+            android:id="@+id/call_friend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/b"
+            android:text="friend"
             android:layout_weight="1"
             android:layout_margin="8dp"
             android:backgroundTint="@color/white"
             android:textColor="@color/black"/>
 
         <Button
-            android:id="@+id/button_c"
+            android:id="@+id/help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/c"
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"/>
-
-        <Button
-            android:id="@+id/button_d"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/d"
+            android:text="help"
             android:layout_weight="1"
             android:layout_margin="8dp"
             android:backgroundTint="@color/white"
