@@ -1,14 +1,20 @@
 package by.isb.testmyskills
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.util.*
+import kotlin.coroutines.CoroutineContext
 
 class ActionActivity : AppCompatActivity() {
 
@@ -35,8 +41,8 @@ class ActionActivity : AppCompatActivity() {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 0) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
                 viewModel.points++
-            }
-            else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
+
+            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
 
         }
@@ -45,8 +51,7 @@ class ActionActivity : AppCompatActivity() {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 1) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
                 viewModel.points++
-            }
-            else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
 
         }
@@ -55,8 +60,7 @@ class ActionActivity : AppCompatActivity() {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 2) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
                 viewModel.points++
-            }
-            else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
         }
 
@@ -64,17 +68,16 @@ class ActionActivity : AppCompatActivity() {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 3) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
                 viewModel.points++
-            }
-            else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
         }
 
     }
 
     fun nextQuestion() {
-        if (viewModel.currentQuestion==viewModel.questionsCount) {
+
+        if (viewModel.currentQuestion > viewModel.questionsCount) {
             Toast.makeText(this, "Bye-Bye", Toast.LENGTH_SHORT).show()
-            return
         }
         val questionText = findViewById<TextView>(R.id.text_question)
         val answerA = findViewById<Button>(R.id.button_a)
@@ -112,7 +115,7 @@ class ActionActivity : AppCompatActivity() {
                 Question(
                     words[0].toInt(),
                     words[1],
-                    arrayOf(
+                    arrayListOf(
                         words[2],
                         words[3],
                         words[4],
@@ -122,9 +125,11 @@ class ActionActivity : AppCompatActivity() {
                 )
             )
 
+
             eachline = bufferedReader.readLine()
         }
 
     }
+
 
 }
