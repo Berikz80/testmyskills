@@ -14,7 +14,6 @@ class ActionActivity : AppCompatActivity() {
 
     lateinit var viewModel: ActionViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_action)
@@ -66,7 +65,7 @@ class ActionActivity : AppCompatActivity() {
 
     }
 
-    fun nextQuestion() {
+    private fun nextQuestion() {
         viewModel.currentQuestion++
         if (viewModel.currentQuestion > viewModel.questionsCount) {
             Toast.makeText(this, "Bye-Bye", Toast.LENGTH_SHORT).show()
@@ -79,7 +78,7 @@ class ActionActivity : AppCompatActivity() {
         val answerD = findViewById<Button>(R.id.button_d)
 
         var curr = viewModel.currentQuestion
-        questionText.text = viewModel.questions[curr].question + " : " + viewModel.questions[curr].rightAnswer
+        questionText.text = viewModel.questions[curr].question
 
         answerA.text = viewModel.questions[curr].answers[0]
         answerB.text = viewModel.questions[curr].answers[1]
