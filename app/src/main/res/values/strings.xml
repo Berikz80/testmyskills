@@ -4,4 +4,10 @@
     <string name="b">B</string>
     <string name="c">C</string>
     <string name="d">D</string>
+    <string name="your_name">Your name</string>
+    <string name="font">sans-serif-condensed-light</string>
+    <string name="please_enter_your_name">Please enter your name</string>
+    <string name="please_choose_level_of_difficulty">Level of difficulty</string>
+    <string name="timer">Timer enabled</string>
+    <string name="choose_amount_of_questions">Number of questions</string>
 </resources>
