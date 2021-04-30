@@ -19,7 +19,11 @@ class ActionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_action)
 
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
-
+        with(viewModel) {
+            name =  intent.getStringExtra("name")?:"User"
+            complexity = intent.getIntExtra("difficulty", 3)
+            questionsCount = intent.getIntExtra("questions", 10)
+        }
         readQuestionsFromFile()
 
         val questionText = findViewById<TextView>(R.id.text_question)

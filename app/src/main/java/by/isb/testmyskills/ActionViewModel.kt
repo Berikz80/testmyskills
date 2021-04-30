@@ -10,10 +10,10 @@ import java.io.InputStreamReader
 
 class ActionViewModel : ViewModel() {
 
-    val name: String = ""
-    val complexity: Int = 1
-    val isTimeEnabled: Boolean = false
-    val questionsCount: Int = 10
+    var name: String = ""
+    var complexity: Int = 3
+    var isTimeEnabled: Boolean = false
+    var questionsCount: Int = 10
     var points : Int =0
     var currentQuestion : Int = -1
     val questions : ArrayList<Question> = arrayListOf()
