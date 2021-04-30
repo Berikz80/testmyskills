@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         startButton.setOnClickListener {
             val intent = Intent(this,ActionActivity::class.java)
-            intent.putExtra("name", inputName.text)
+            intent.putExtra("name", inputName.text.toString())
             intent.putExtra("difficulty", difficultyLevel.value.toInt())
             intent.putExtra("questions", numberQuestions.value.toInt())
             startActivity(intent)
