@@ -14,9 +14,9 @@ class ActionViewModel : ViewModel() {
     var complexity: Int = 3
     var isTimeEnabled: Boolean = false
     var questionsCount: Int = 10
-    var points : Int =0
-    var currentQuestion : Int = -1
-    val questions : ArrayList<Question> = arrayListOf()
+    var points: Int = 0
+    var currentQuestion: Int = -1
+    val questions: ArrayList<Question> = arrayListOf()
 
 
 }

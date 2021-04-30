@@ -20,7 +20,7 @@ class ActionActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
         with(viewModel) {
-            name =  intent.getStringExtra("name")?:"User"
+            name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
         }
