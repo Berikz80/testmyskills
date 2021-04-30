@@ -18,13 +18,20 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
         val startButton = findViewById<Button>(R.id.button_start)
         val inputName = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_name)
+
         var needTime : Boolean = false
-//     таймер
+
         val timerEnable = findViewById<CheckBox>(R.id.timerOnOff).setOnClickListener{ if (!viewModel.isTimeEnabled) viewModel.isTimeEnabled= true
         else if (viewModel.isTimeEnabled) viewModel.isTimeEnabled = false }
+
+        val difficultyLevel = findViewById<com.google.android.material.slider.Slider>(R.id.difficulty_level)
+        val numberQuestions = findViewById<com.google.android.material.slider.Slider>(R.id.number_questions)
+
         startButton.setOnClickListener {
             val intent = Intent(this,ActionActivity::class.java)
-            intent.putExtra("name", inputName.text)
+            intent.putExtra("name", inputName.text.toString())
+            intent.putExtra("difficulty", difficultyLevel.value.toInt())
+            intent.putExtra("questions", numberQuestions.value.toInt())
             startActivity(intent)
 
         }

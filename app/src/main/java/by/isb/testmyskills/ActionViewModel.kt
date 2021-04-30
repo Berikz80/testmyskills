@@ -12,14 +12,15 @@ import java.io.InputStreamReader
 
 class ActionViewModel : ViewModel() {
 
-   internal  lateinit var timer : CountDownTimer
-    val name: String = ""
-    val complexity: Int = 1
+
+    internal  lateinit var timer : CountDownTimer
+    var name: String = "User"
+    var complexity: Int = 3
     var isTimeEnabled: Boolean = false
-    val questionsCount: Int = 10
-    var points : Int =0
-    var currentQuestion : Int = -1
-    val questions : ArrayList<Question> = arrayListOf()
+    var questionsCount: Int = 10
+    var points: Int = 0
+    var currentQuestion: Int = -1
+    val questions: ArrayList<Question> = arrayListOf()
     var timeIsRemaining = MutableLiveData<Int>()
 
 fun startTimer () {

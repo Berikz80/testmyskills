@@ -13,4 +13,15 @@
     <string name="enter_your_name">Enter your name</string>
     <string name="number_of_questions">Number of questions</string>
     <string name="start">Start</string>
+    <string name="end_game">End game</string>
+    <string name="total_score">Total score: </string>
+    <string name="restart">Restart</string>
+    <string name="exit">exit</string>
+    <string name="friend_answer_1">Hmm... Good question... I think the answer is </string>
+    <string name="friend_answer_2">Who is it? Where did you get my number? Do not call here again!! </string>
+    <string name="friend_answer_3">No. I am sorry. I do not understand biology ...</string>
+    <string name="friend_answer_5">Hmm... Good question... I think the answer is </string>
+    <string name="friend_answer_6">Hmm... Good question... I think the answer is </string>
+    <string name="used">Used!</string>
+
 </resources>
