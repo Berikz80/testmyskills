@@ -21,10 +21,10 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:elevation="5dp"
-
             android:src="@drawable/quiz"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"

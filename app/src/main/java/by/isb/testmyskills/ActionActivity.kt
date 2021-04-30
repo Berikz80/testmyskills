@@ -1,11 +1,13 @@
 package by.isb.testmyskills
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -65,11 +67,23 @@ class ActionActivity : AppCompatActivity() {
     }
 
     private fun nextQuestion() {
-        viewModel.currentQuestion++
-        if (viewModel.currentQuestion > viewModel.questionsCount) {
-            Toast.makeText(this, "Bye-Bye", Toast.LENGTH_SHORT).show()
+
+        if (viewModel.currentQuestion == viewModel.questionsCount) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle(resources.getString(R.string.end_game))
+                .setMessage(resources.getString(R.string.total_score).plus(" ${viewModel.points}"))
+                .setNegativeButton(resources.getString(R.string.exit)) { _, _ ->
+                    super.finish()
+                }
+                .setPositiveButton(resources.getString(R.string.restart)) { _, _ ->
+                    super.finish()
+                    startActivity(intent)
+                }
+                .show()
             return
+
         }
+        viewModel.currentQuestion++
         val questionText = findViewById<TextView>(R.id.text_question)
         val answerA = findViewById<Button>(R.id.button_a)
         val answerB = findViewById<Button>(R.id.button_b)
