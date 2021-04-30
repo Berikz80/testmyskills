@@ -25,12 +25,18 @@ class ActionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_action)
 
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
+
         with(viewModel) {
             name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
-        }
+            isTimeEnabled = intent.getBooleanExtra("timer", false)
 
+        }
+        if (viewModel.isTimeEnabled){viewModel.startTimer()}
+
+        val timer = findViewById<TextView>(R.id.timer)
+        viewModel.timeIsLeft.observe(this, androidx.lifecycle.Observer { timer.text = it.toString() })
 
         readQuestionsFromFile()
 
