@@ -3,10 +3,12 @@ package by.isb.testmyskills
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -19,7 +21,6 @@ import java.util.*
 class ActionActivity : AppCompatActivity() {
 
     lateinit var viewModel: ActionViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_action)
@@ -33,12 +34,14 @@ class ActionActivity : AppCompatActivity() {
 
 
         readQuestionsFromFile()
-
+        val time = findViewById<TextView>(R.id.timer)
         val questionText = findViewById<TextView>(R.id.text_question)
         val answerA = findViewById<Button>(R.id.button_a)
         val answerB = findViewById<Button>(R.id.button_b)
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
+        if (viewModel.isTimeEnabled) viewModel.startTimer()
+        viewModel.timeIsRemaining.observe(this, Observer {time.text = it?.toString()})
 
         val friendHelp = findViewById<Button>(R.id.call_friend)
         var friendHelpUsed = true
