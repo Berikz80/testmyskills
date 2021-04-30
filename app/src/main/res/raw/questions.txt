@@ -14,7 +14,7 @@
 1;Где родился создатель Google;Нью-Йорк;Лондон;Москва;Сиэтл
 1;Такой шрифт SomethingLikeThis называется;camel case;snake case;zebra case;bird case
 5;Имя Android 5 ;Jelly;Kitkat;Creampie;Lollipop
-2;Правильная запись числа типа 100000 Long;100000L;100000Long;100000l;100000
+2;Правильная запись числа типа 100000 Long;100000L;100000Long;100.000long;100000
 3;Какого цикла не существует в Java;while-do;while;do;for
 1;Что не является оператором перехода;stop;break;return;continue
 4;Какое расширение имеют установочники Android-приложений;apk;jdk;kt;exe

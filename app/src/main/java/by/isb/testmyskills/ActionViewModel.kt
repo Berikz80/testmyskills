@@ -10,7 +10,7 @@ import java.io.InputStreamReader
 
 class ActionViewModel : ViewModel() {
 
-    var name: String = ""
+    var name: String = "User"
     var complexity: Int = 3
     var isTimeEnabled: Boolean = false
     var questionsCount: Int = 10

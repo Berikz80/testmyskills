@@ -31,6 +31,7 @@ class ActionActivity : AppCompatActivity() {
             questionsCount = intent.getIntExtra("questions", 10)
         }
 
+
         readQuestionsFromFile()
 
         val questionText = findViewById<TextView>(R.id.text_question)
@@ -127,6 +128,7 @@ class ActionActivity : AppCompatActivity() {
                 ).show()
                 friendHelpUsed = false
                 friendHelp.setBackgroundColor(Color.GRAY)
+                viewModel.points-=50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
@@ -136,6 +138,7 @@ class ActionActivity : AppCompatActivity() {
                 fiftyFifty(viewModel.questions[viewModel.currentQuestion].rightAnswer)
                 fiftyFiftyUsed = false
                 fiftyFifty.setBackgroundColor(Color.GRAY)
+                viewModel.points-=50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
