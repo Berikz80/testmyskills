@@ -1,11 +1,12 @@
 package by.isb.testmyskills
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -38,51 +39,93 @@ class ActionActivity : AppCompatActivity() {
         val answerD = findViewById<Button>(R.id.button_d)
 
         val friendHelp = findViewById<Button>(R.id.call_friend)
-        var useFriendHelp = true
+        var friendHelpUsed = true
+
+        val fiftyFifty = findViewById<Button>(R.id.fifty_fifty)
+        var fiftyFiftyUsed = true
+
+
+        fun visibleButton() {
+            answerA.visibility = View.VISIBLE
+            answerB.visibility = View.VISIBLE
+            answerC.visibility = View.VISIBLE
+            answerD.visibility = View.VISIBLE
+        }
+
 
 
         nextQuestion()
 
+
+
         answerA.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 0) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
-                viewModel.points++
+                viewModel.points += 100
             } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
+            visibleButton()
 
         }
 
         answerB.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 1) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
-                viewModel.points++
+                viewModel.points += 100
             } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
+            visibleButton()
         }
 
         answerC.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 2) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
-                viewModel.points++
+                viewModel.points += 100
             } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
+            visibleButton()
         }
 
         answerD.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 3) {
                 Toast.makeText(this, "Right Answer", Toast.LENGTH_LONG).show()
-                viewModel.points++
+                viewModel.points += 100
             } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
+            visibleButton()
         }
 
+
+
+
         friendHelp.setOnClickListener {
-            if (useFriendHelp) {
-                Snackbar.make(it, randomAnswer(viewModel.questions[viewModel.currentQuestion].rightAnswer,viewModel.name), Snackbar.LENGTH_SHORT).show()
-                useFriendHelp=false
+            if (friendHelpUsed) {
+                Snackbar.make(
+                    it,
+                    randomAnswer(
+                        viewModel.questions[viewModel.currentQuestion].rightAnswer,
+                        viewModel.name
+                    ),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                friendHelpUsed = false
                 friendHelp.setBackgroundColor(Color.GRAY)
-            }else Snackbar.make(it,R.string.used,Snackbar.LENGTH_SHORT).show()
+            } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
+
+
+        fiftyFifty.setOnClickListener {
+            if (fiftyFiftyUsed) {
+                fiftyFifty(viewModel.questions[viewModel.currentQuestion].rightAnswer)
+                fiftyFiftyUsed = false
+                fiftyFifty.setBackgroundColor(Color.GRAY)
+            } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
+        }
+
+
+
+
+
     }
 
     private fun nextQuestion() {
@@ -164,9 +207,10 @@ class ActionActivity : AppCompatActivity() {
 
         viewModel.questions.shuffle()
     }
-    fun randomAnswer (rightAns: Int, name:String): String {
+
+    private fun randomAnswer(rightAns: Int, name: String): String {
         val right = rightAns + 1
-        when(Random().nextInt(5)){
+        when (Random().nextInt(6)) {
             0 -> return resources.getString(R.string.friend_answer_1).plus(" $right")
             1 -> return resources.getString(R.string.friend_answer_2)
             2 -> return resources.getString(R.string.friend_answer_3)
@@ -175,6 +219,57 @@ class ActionActivity : AppCompatActivity() {
             5 -> return "You fool, $name ... The easiest question! Answer: $right"
         }
         return "..."
+    }
+
+    private fun fiftyFifty(right: Int) {
+        val answerA = findViewById<Button>(R.id.button_a)
+        val answerB = findViewById<Button>(R.id.button_b)
+        val answerC = findViewById<Button>(R.id.button_c)
+        val answerD = findViewById<Button>(R.id.button_d)
+        when (right) {
+            0 -> {
+                if (Random().nextBoolean()) {
+                    answerB.visibility = View.INVISIBLE
+                    if (Random().nextBoolean()) answerC.visibility = View.INVISIBLE
+                    else answerD.visibility = View.INVISIBLE
+                } else {
+                    answerC.visibility = View.INVISIBLE
+                    answerD.visibility = View.INVISIBLE
+                }
+            }
+            1 -> {
+                if (Random().nextBoolean()) {
+                    answerA.visibility = View.INVISIBLE
+                    if (Random().nextBoolean()) answerC.visibility = View.INVISIBLE
+                    else answerD.visibility = View.INVISIBLE
+                } else {
+                    answerC.visibility = View.INVISIBLE
+                    answerD.visibility = View.INVISIBLE
+                }
+            }
+            2 -> {
+                if (Random().nextBoolean()) {
+                    answerA.visibility = View.INVISIBLE
+                    if (Random().nextBoolean()) answerB.visibility = View.INVISIBLE
+                    else answerD.visibility = View.INVISIBLE
+                } else {
+                    answerB.visibility = View.INVISIBLE
+                    answerD.visibility = View.INVISIBLE
+                }
+            }
+            3 -> {
+                if (Random().nextBoolean()) {
+                    answerA.visibility = View.INVISIBLE
+                    if (Random().nextBoolean()) answerC.visibility = View.INVISIBLE
+                    else answerB.visibility = View.INVISIBLE
+                } else {
+                    answerC.visibility = View.INVISIBLE
+                    answerB.visibility = View.INVISIBLE
+                }
+            }
+
+        }
+
     }
 
 }
