@@ -24,6 +24,7 @@ class ActionActivity : AppCompatActivity() {
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
         }
+
         readQuestionsFromFile()
 
         val questionText = findViewById<TextView>(R.id.text_question)
@@ -93,6 +94,8 @@ class ActionActivity : AppCompatActivity() {
 
         val questionCounterText = findViewById<TextView>(R.id.question_counter)
         questionCounterText.text = viewModel.currentQuestion.toString()
+        val questionNumberText = findViewById<TextView>(R.id.question)
+        questionNumberText.text = viewModel.questionsCount.toString()
 
     }
 
