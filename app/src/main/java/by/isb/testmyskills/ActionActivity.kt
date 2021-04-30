@@ -1,6 +1,6 @@
 package by.isb.testmyskills
 
-import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -8,9 +8,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.util.*
 
 class ActionActivity : AppCompatActivity() {
 
@@ -34,6 +36,10 @@ class ActionActivity : AppCompatActivity() {
         val answerB = findViewById<Button>(R.id.button_b)
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
+
+        val friendHelp = findViewById<Button>(R.id.call_friend)
+        var useFriendHelp = true
+
 
         nextQuestion()
 
@@ -64,10 +70,18 @@ class ActionActivity : AppCompatActivity() {
 
         answerD.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 3) {
-                Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Right Answer", Toast.LENGTH_LONG).show()
                 viewModel.points++
             } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
+        }
+
+        friendHelp.setOnClickListener {
+            if (useFriendHelp) {
+                Snackbar.make(it, randomAnswer(viewModel.questions[viewModel.currentQuestion].rightAnswer,viewModel.name), Snackbar.LENGTH_SHORT).show()
+                useFriendHelp=false
+                friendHelp.setBackgroundColor(Color.GRAY)
+            }else Snackbar.make(it,R.string.used,Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -149,6 +163,18 @@ class ActionActivity : AppCompatActivity() {
         }
 
         viewModel.questions.shuffle()
+    }
+    fun randomAnswer (rightAns: Int, name:String): String {
+        val right = rightAns + 1
+        when(Random().nextInt(5)){
+            0 -> return resources.getString(R.string.friend_answer_1).plus(" $right")
+            1 -> return resources.getString(R.string.friend_answer_2)
+            2 -> return resources.getString(R.string.friend_answer_3)
+            3 -> return "Hi $name. Try $right"
+            4 -> return "$name are you? Where is my money??"
+            5 -> return "You fool, $name ... The easiest question! Answer: $right"
+        }
+        return "..."
     }
 
 }
