@@ -5,8 +5,4 @@ class Question(
     var question: String,
     var answers: Array<String>,
     var rightAnswer : Int
-) {
-
-
-
-}
+)

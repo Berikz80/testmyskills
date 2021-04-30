@@ -62,7 +62,6 @@ class ActionActivity : AppCompatActivity() {
             } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
             nextQuestion()
         }
-
     }
 
     private fun nextQuestion() {
@@ -77,7 +76,7 @@ class ActionActivity : AppCompatActivity() {
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
 
-        var curr = viewModel.currentQuestion
+        val curr = viewModel.currentQuestion
         questionText.text = viewModel.questions[curr].question
 
         answerA.text = viewModel.questions[curr].answers[0]
@@ -93,7 +92,7 @@ class ActionActivity : AppCompatActivity() {
 
     }
 
-    fun readQuestionsFromFile() {
+    private fun readQuestionsFromFile() {
 
         val inputStream: InputStream = resources.openRawResource(R.raw.questions)
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
@@ -128,6 +127,7 @@ class ActionActivity : AppCompatActivity() {
             eachline = bufferedReader.readLine()
         }
 
+        viewModel.questions.shuffle()
     }
 
 }
