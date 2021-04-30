@@ -2,6 +2,7 @@ package by.isb.testmyskills
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -60,39 +61,55 @@ class ActionActivity : AppCompatActivity() {
 
         answerA.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 0) {
-                Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
                 viewModel.points += 100
-            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
-            nextQuestion()
-            visibleButton()
+                answerA.setBackgroundColor(Color.GREEN)
+            } else answerA.setBackgroundColor(Color.RED)
+
+            android.os.Handler()
+                .postDelayed({
+                    answerA.setBackgroundColor(Color.WHITE)
+                    nextQuestion()
+                    visibleButton()}, 400)
 
         }
 
         answerB.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 1) {
-                Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
                 viewModel.points += 100
-            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
-            nextQuestion()
-            visibleButton()
+                answerB.setBackgroundColor(Color.GREEN)
+            } else answerB.setBackgroundColor(Color.RED)
+            android.os.Handler()
+                .postDelayed({
+                    answerB.setBackgroundColor(Color.WHITE)
+                    nextQuestion()
+                    visibleButton()}, 400)
+
         }
 
         answerC.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 2) {
-                Toast.makeText(this, "Right Answer", Toast.LENGTH_SHORT).show()
                 viewModel.points += 100
-            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
-            nextQuestion()
-            visibleButton()
+                answerC.setBackgroundColor(Color.GREEN)
+            } else answerC.setBackgroundColor(Color.RED)
+            android.os.Handler()
+                .postDelayed({
+                    answerC.setBackgroundColor(Color.WHITE)
+                    nextQuestion()
+                    visibleButton() }, 400)
+
         }
 
         answerD.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 3) {
-                Toast.makeText(this, "Right Answer", Toast.LENGTH_LONG).show()
                 viewModel.points += 100
-            } else Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show()
-            nextQuestion()
-            visibleButton()
+                answerD.setBackgroundColor(Color.GREEN)
+            } else answerD.setBackgroundColor(Color.RED)
+            android.os.Handler()
+                .postDelayed({
+                    answerD.setBackgroundColor(Color.WHITE)
+                    nextQuestion()
+                    visibleButton()}, 400)
+
         }
 
 
@@ -123,12 +140,11 @@ class ActionActivity : AppCompatActivity() {
         }
 
 
-
-
-
     }
 
+
     private fun nextQuestion() {
+
 
         if (viewModel.currentQuestion == viewModel.questionsCount) {
             MaterialAlertDialogBuilder(this)
@@ -145,12 +161,14 @@ class ActionActivity : AppCompatActivity() {
             return
 
         }
+
         viewModel.currentQuestion++
         val questionText = findViewById<TextView>(R.id.text_question)
         val answerA = findViewById<Button>(R.id.button_a)
         val answerB = findViewById<Button>(R.id.button_b)
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
+
 
         val curr = viewModel.currentQuestion
         questionText.text = viewModel.questions[curr].question
@@ -167,6 +185,7 @@ class ActionActivity : AppCompatActivity() {
         questionCounterText.text = viewModel.currentQuestion.toString()
         val questionNumberText = findViewById<TextView>(R.id.question)
         questionNumberText.text = viewModel.questionsCount.toString()
+
 
     }
 
