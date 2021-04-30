@@ -17,10 +17,14 @@ class MainActivity : AppCompatActivity() {
 
         val startButton = findViewById<Button>(R.id.button_start)
         val inputName = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_name)
+        val difficultyLevel = findViewById<com.google.android.material.slider.Slider>(R.id.difficulty_level)
+        val numberQuestions = findViewById<com.google.android.material.slider.Slider>(R.id.number_questions)
 
         startButton.setOnClickListener {
             val intent = Intent(this,ActionActivity::class.java)
             intent.putExtra("name", inputName.text)
+            intent.putExtra("difficulty", difficultyLevel.value.toInt())
+            intent.putExtra("questions", numberQuestions.value.toInt())
             startActivity(intent)
         }
     }
