@@ -2,9 +2,12 @@ package by.isb.testmyskills
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import java.io.BufferedReader
 import java.io.InputStream
@@ -13,7 +16,6 @@ import java.io.InputStreamReader
 class ActionActivity : AppCompatActivity() {
 
     lateinit var viewModel: ActionViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_action)
@@ -21,12 +23,14 @@ class ActionActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
 
         readQuestionsFromFile()
-
+        val time = findViewById<TextView>(R.id.timer)
         val questionText = findViewById<TextView>(R.id.text_question)
         val answerA = findViewById<Button>(R.id.button_a)
         val answerB = findViewById<Button>(R.id.button_b)
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
+        if (viewModel.isTimeEnabled) viewModel.startTimer()
+        viewModel.timeIsRemaining.observe(this, Observer {time.text = it?.toString()})
 
         nextQuestion()
 
