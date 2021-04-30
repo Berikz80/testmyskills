@@ -26,7 +26,7 @@
 1;Дженерики обозначаются ;<T>;T;"""T""";(T)
 1;Что не реализуется от Iterable;Collection;Set;List;Map
 5;Кто сделал первый смартфон с TouchId;какая-то фруктовая компания ;Samsung;Google;Nokia
-1;Реальзация строк в java представлена 3 слассами StringBuilder, String;StringReader;StringBuffer;StringBooster;StringBlaster
+1;Реальзация строк в java представлена 3 классами StringBuilder, String и...;StringReader;StringBuffer;StringBooster;StringBlaster
 1;Какого метода нет у класса Object java;getObject;hashCode;clone;toString
 4;Что такое переопределение функции?;изменение входных параметров;изменение выходных параметров;изменение сигнатуры функции;изменение тела функции
 3;Что такое функции высшего порядка?;функции которые стоят выше в иерархии;перегруженные функции;функции которые принимают и/ или возвращают другие функции;переопределённые функции
