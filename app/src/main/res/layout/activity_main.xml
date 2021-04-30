@@ -6,10 +6,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
+    android:background="@color/teal_700"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="5dp"
+
+            android:src="@drawable/quiz"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:src="@drawable/os"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,6 +46,7 @@
         android:text="@string/your_name"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="sans-serif-condensed-light"
         app:layout_constraintTop_toBottomOf="@+id/input_number_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -25,6 +54,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:hint="Name"
+        app:boxStrokeColor="@color/teal_800"
+        app:helperTextTextColor="@color/teal_800"
+        app:hintTextColor="@color/teal_800"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp">
 
@@ -42,6 +75,7 @@
         android:text="@string/please_choose_level_of_difficulty"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="sans-serif-condensed-light"
         app:layout_constraintTop_toBottomOf="@+id/input_name_layout" />
 
     <com.google.android.material.slider.Slider
@@ -50,6 +84,9 @@
         android:layout_margin="16dp"
         android:stepSize="1.0"
         android:value="3.0"
+        app:trackColor="@color/teal_200"
+        app:thumbColor="@color/teal_800"
+        app:haloColor="@color/teal_700"
         android:valueFrom="1.0"
         android:valueTo="5.0"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +99,7 @@
         android:text="@string/number_of_questions"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="sans-serif-condensed-light"
         app:layout_constraintTop_toBottomOf="@+id/input_number_layout" />
 
     <com.google.android.material.slider.Slider
@@ -70,6 +108,9 @@
         android:layout_margin="16dp"
         android:stepSize="1.0"
         android:value="10.0"
+        app:trackColor="@color/teal_200"
+        app:thumbColor="@color/teal_800"
+        app:haloColor="@color/teal_700"
         android:valueFrom="5.0"
         android:valueTo="50.0"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="sans-serif-condensed-light"
         android:hint="@string/timer"
         android:textColorHint="@color/white"
         android:textSize="20sp"
@@ -94,9 +136,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginTop="48dp"
-        android:backgroundTint="@color/teal_700"
+        android:backgroundTint="@color/teal_800"
         android:text="@string/start"
         android:textSize="32sp"
+        android:fontFamily="sans-serif-condensed-light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
