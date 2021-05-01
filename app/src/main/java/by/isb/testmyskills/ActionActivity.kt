@@ -1,7 +1,6 @@
 package by.isb.testmyskills
 
 import android.graphics.Color
-import android.graphics.Color.red
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -31,7 +30,6 @@ class ActionActivity : AppCompatActivity() {
             name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
-            maxTime =  intent.getIntExtra("timer", 0)
         }
 
 
@@ -42,16 +40,8 @@ class ActionActivity : AppCompatActivity() {
         val answerB = findViewById<Button>(R.id.button_b)
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
-
-        viewModel.timeIsLeft.observe(this) {
-            time.text = it?.toString()+getString(R.string.seconds)
-            if (it<11) time.setTextColor(Color.RED)
-            else time.setTextColor(Color.GRAY)
-            if (it==0) {
-                Toast.makeText(this, "Time is out. Next question", Toast.LENGTH_LONG).show()
-                nextQuestion()
-            }
-        }
+        if (viewModel.isTimeEnabled) viewModel.startTimer()
+        viewModel.timeIsRemaining.observe(this, Observer {time.text = it?.toString()})
 
         val friendHelp = findViewById<Button>(R.id.call_friend)
         var friendHelpUsed = true
@@ -67,7 +57,11 @@ class ActionActivity : AppCompatActivity() {
             answerD.visibility = View.VISIBLE
         }
 
+
+
         nextQuestion()
+
+
 
         answerA.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 0) {
@@ -79,8 +73,7 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerA.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
-                }, 400)
+                    visibleButton()}, 400)
 
         }
 
@@ -93,8 +86,7 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerB.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
-                }, 400)
+                    visibleButton()}, 400)
 
         }
 
@@ -107,8 +99,7 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerC.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
-                }, 400)
+                    visibleButton() }, 400)
 
         }
 
@@ -121,8 +112,7 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerD.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
-                }, 400)
+                    visibleButton()}, 400)
 
         }
 
@@ -141,7 +131,7 @@ class ActionActivity : AppCompatActivity() {
                 ).show()
                 friendHelpUsed = false
                 friendHelp.setBackgroundColor(Color.GRAY)
-                viewModel.points -= 50
+                viewModel.points-=50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
@@ -151,7 +141,7 @@ class ActionActivity : AppCompatActivity() {
                 fiftyFifty(viewModel.questions[viewModel.currentQuestion].rightAnswer)
                 fiftyFiftyUsed = false
                 fiftyFifty.setBackgroundColor(Color.GRAY)
-                viewModel.points -= 50
+                viewModel.points-=50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
@@ -178,7 +168,6 @@ class ActionActivity : AppCompatActivity() {
 
         }
 
-
         viewModel.currentQuestion++
         val questionText = findViewById<TextView>(R.id.text_question)
         val answerA = findViewById<Button>(R.id.button_a)
@@ -203,8 +192,6 @@ class ActionActivity : AppCompatActivity() {
         val questionNumberText = findViewById<TextView>(R.id.question)
         questionNumberText.text = viewModel.questionsCount.toString()
 
-        viewModel.stopTimer()
-        viewModel.startTimer()
 
     }
 

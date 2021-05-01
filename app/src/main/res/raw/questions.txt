@@ -18,7 +18,7 @@
 3;Какого цикла не существует в Java;while-do;while;do;for
 1;Что не является оператором перехода;stop;break;return;continue
 4;Какое расширение имеют установочники Android-приложений;apk;jdk;kt;exe
-3;Компоненты android  content providers, activity, services;containers;view system;broadcast receivers;activity manager
+3;Компоненты android  content providers, activity, servises;containers;view system;broadcast receivers;activity manager
 5;Жизненный цикл активити onCreate onStart ...;onResume;onPause;onStartView;onStartCreated
 1;На каком языке не делались приложения для Android ;Fortran;Kotlin;C++;Java
 1;Какая разметка используется для дизайна в Android?;XML;CSS;HTML;SQL
