@@ -8,9 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/teal_700"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".MainActivity">
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -82,7 +80,7 @@
         android:id="@+id/difficulty_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:stepSize="1.0"
         android:value="3.0"
         app:trackColor="@color/teal_200"
@@ -107,7 +105,7 @@
         android:id="@+id/number_questions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:stepSize="1.0"
         android:value="10.0"
         app:trackColor="@color/teal_200"
@@ -118,18 +116,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/timer"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="sans-serif-condensed-light"
-        android:hint="@string/timer"
-        android:textColorHint="@color/white"
+        android:text="@string/time_for_question_in_seconds"
+        android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="sans-serif-condensed-light"
+        app:layout_constraintTop_toBottomOf="@+id/input_number_layout" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:stepSize="15.0"
+        android:value="0.0"
+        app:trackColor="@color/teal_200"
+        app:thumbColor="@color/teal_800"
+        app:haloColor="@color/teal_700"
+        android:valueFrom="0.0"
+        android:valueTo="60.0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
     <Button
