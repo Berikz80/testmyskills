@@ -43,12 +43,10 @@ class ActionActivity : AppCompatActivity() {
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
 
-        viewModel.startTimer()
-
         viewModel.timeIsLeft.observe(this) {
             time.text = it?.toString()+getString(R.string.seconds)
             if (it<11) time.setTextColor(Color.RED)
-            else time.setTextColor(Color.WHITE)
+            else time.setTextColor(Color.GRAY)
             if (it==0) {
                 Toast.makeText(this, "Time is out. Next question", Toast.LENGTH_LONG).show()
                 nextQuestion()
@@ -180,6 +178,7 @@ class ActionActivity : AppCompatActivity() {
 
         }
 
+
         viewModel.currentQuestion++
         val questionText = findViewById<TextView>(R.id.text_question)
         val answerA = findViewById<Button>(R.id.button_a)
@@ -204,6 +203,8 @@ class ActionActivity : AppCompatActivity() {
         val questionNumberText = findViewById<TextView>(R.id.question)
         questionNumberText.text = viewModel.questionsCount.toString()
 
+        viewModel.stopTimer()
+        viewModel.startTimer()
 
     }
 

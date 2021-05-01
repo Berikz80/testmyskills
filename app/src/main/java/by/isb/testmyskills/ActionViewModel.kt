@@ -19,16 +19,22 @@ class ActionViewModel : ViewModel() {
     var points: Int = 0
     var currentQuestion: Int = -1
     val questions: ArrayList<Question> = arrayListOf()
-    val timeIsLeft = MutableLiveData<Int>()
+    var timeIsLeft = MutableLiveData<Int>()
+    lateinit var countDownTimer: CountDownTimer
 
     fun startTimer() {
-        object : CountDownTimer((maxTime*1000).toLong(), 1000) {
+        countDownTimer = object : CountDownTimer((maxTime * 1000).toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeIsLeft.value = (millisUntilFinished / 1000).toInt()
             }
+
             override fun onFinish() {
                 cancel()
             }
         }.start()
+    }
+
+    fun stopTimer() {
+        if (currentQuestion > 0) countDownTimer.cancel()
     }
 }
