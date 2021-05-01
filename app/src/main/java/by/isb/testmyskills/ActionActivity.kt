@@ -30,6 +30,7 @@ class ActionActivity : AppCompatActivity() {
             name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
+            maxTime =  intent.getIntExtra("timer", 10)
         }
 
 
@@ -40,8 +41,12 @@ class ActionActivity : AppCompatActivity() {
         val answerB = findViewById<Button>(R.id.button_b)
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
-        if (viewModel.isTimeEnabled) viewModel.startTimer()
-        viewModel.timeIsRemaining.observe(this, Observer {time.text = it?.toString()})
+
+        viewModel.startTimer()
+
+        viewModel.timeIsLeft.observe(this) {
+            time.text = it?.toString()+getString(R.string.seconds)
+        }
 
         val friendHelp = findViewById<Button>(R.id.call_friend)
         var friendHelpUsed = true
@@ -73,7 +78,8 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerA.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()}, 400)
+                    visibleButton()
+                }, 400)
 
         }
 
@@ -86,7 +92,8 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerB.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()}, 400)
+                    visibleButton()
+                }, 400)
 
         }
 
@@ -99,7 +106,8 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerC.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton() }, 400)
+                    visibleButton()
+                }, 400)
 
         }
 
@@ -112,7 +120,8 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerD.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()}, 400)
+                    visibleButton()
+                }, 400)
 
         }
 
@@ -131,7 +140,7 @@ class ActionActivity : AppCompatActivity() {
                 ).show()
                 friendHelpUsed = false
                 friendHelp.setBackgroundColor(Color.GRAY)
-                viewModel.points-=50
+                viewModel.points -= 50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
@@ -141,7 +150,7 @@ class ActionActivity : AppCompatActivity() {
                 fiftyFifty(viewModel.questions[viewModel.currentQuestion].rightAnswer)
                 fiftyFiftyUsed = false
                 fiftyFifty.setBackgroundColor(Color.GRAY)
-                viewModel.points-=50
+                viewModel.points -= 50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
