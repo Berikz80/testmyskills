@@ -36,7 +36,25 @@ class ActionActivity : AppCompatActivity() {
         if (viewModel.isTimeEnabled){viewModel.startTimer()}
 
         val timer = findViewById<TextView>(R.id.timer)
-        viewModel.timeIsLeft.observe(this, androidx.lifecycle.Observer { timer.text = it.toString() })
+        viewModel.timeIsLeft.observe(this, androidx.lifecycle.Observer {  timer.text = it.toString()
+        if (it.toString()=="1")
+        {
+            MaterialAlertDialogBuilder(this)
+                    .setTitle(resources.getString(R.string.end_game))
+                    .setMessage(resources.getString(R.string.total_score).plus(" ${viewModel.points}"))
+                    .setNegativeButton(resources.getString(R.string.exit)) { _, _ ->
+                        super.finish()
+                    }
+                    .setPositiveButton(resources.getString(R.string.restart)) { _, _ ->
+                        super.finish()
+                        startActivity(intent)
+                    }
+                    .show()
+
+
+        }
+        })
+
 
         readQuestionsFromFile()
 
@@ -156,6 +174,7 @@ class ActionActivity : AppCompatActivity() {
 
 
         if (viewModel.currentQuestion == viewModel.questionsCount) {
+           viewModel.stopTimer()
             MaterialAlertDialogBuilder(this)
                 .setTitle(resources.getString(R.string.end_game))
                 .setMessage(resources.getString(R.string.total_score).plus(" ${viewModel.points}"))

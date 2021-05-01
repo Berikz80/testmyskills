@@ -1,7 +1,10 @@
 package by.isb.testmyskills
 
 import android.R
+import android.app.Application
 import android.os.CountDownTimer
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.io.BufferedReader
@@ -10,7 +13,7 @@ import java.io.InputStreamReader
 
 
 class ActionViewModel : ViewModel() {
-
+lateinit var timer: CountDownTimer
     var name: String = "User"
     var complexity: Int = 3
     var isTimeEnabled: Boolean = false
@@ -21,7 +24,7 @@ class ActionViewModel : ViewModel() {
     val timeIsLeft = MutableLiveData<Int>()
 
     fun startTimer(){
-        object : CountDownTimer(60000,1000){
+      timer =  object : CountDownTimer(60000,1000){
             override fun onTick(millisUntilFinished: Long) {
                     timeIsLeft.value =(millisUntilFinished/1000).toInt()
             }
@@ -31,6 +34,8 @@ class ActionViewModel : ViewModel() {
             }
         }.start()
     }
+    fun stopTimer ()
+    {timer.cancel()}
 
 
 }
