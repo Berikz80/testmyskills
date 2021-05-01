@@ -1,6 +1,7 @@
 package by.isb.testmyskills
 
 import android.graphics.Color
+import android.graphics.Color.red
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -30,7 +31,7 @@ class ActionActivity : AppCompatActivity() {
             name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
-            maxTime =  intent.getIntExtra("timer", 10)
+            maxTime =  intent.getIntExtra("timer", 0)
         }
 
 
@@ -46,6 +47,12 @@ class ActionActivity : AppCompatActivity() {
 
         viewModel.timeIsLeft.observe(this) {
             time.text = it?.toString()+getString(R.string.seconds)
+            if (it<11) time.setTextColor(Color.RED)
+            else time.setTextColor(Color.WHITE)
+            if (it==0) {
+                Toast.makeText(this, "Time is out. Next question", Toast.LENGTH_LONG).show()
+                nextQuestion()
+            }
         }
 
         val friendHelp = findViewById<Button>(R.id.call_friend)
@@ -62,11 +69,7 @@ class ActionActivity : AppCompatActivity() {
             answerD.visibility = View.VISIBLE
         }
 
-
-
         nextQuestion()
-
-
 
         answerA.setOnClickListener {
             if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 0) {
