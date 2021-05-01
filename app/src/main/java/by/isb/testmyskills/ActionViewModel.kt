@@ -22,6 +22,10 @@ class ActionViewModel : ViewModel() {
     var currentQuestion: Int = -1
     val questions: ArrayList<Question> = arrayListOf()
     var timeIsRemaining = MutableLiveData<Int>()
+    var percentageOfAAnswer =1
+    var percentageOfBAnswer =1
+    var percentageOfCAnswer =1
+    var percentageOfDAnswer =1
 
 fun startTimer () {
    timer =  object : CountDownTimer(60000, 1000){

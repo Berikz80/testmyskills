@@ -23,5 +23,7 @@
     <string name="friend_answer_5">Hmm... Good question... I think the answer is </string>
     <string name="friend_answer_6">Hmm... Good question... I think the answer is </string>
     <string name="used">Used!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

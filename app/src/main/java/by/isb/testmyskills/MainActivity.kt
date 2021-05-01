@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         var needTime : Boolean = false
 
-        val timerEnable = findViewById<CheckBox>(R.id.timerOnOff).setOnClickListener{ if (!viewModel.isTimeEnabled) viewModel.isTimeEnabled= true
+        val timerEnable = findViewById<CheckBox>(R.id.timer).setOnClickListener{ if (!viewModel.isTimeEnabled) viewModel.isTimeEnabled= true
         else if (viewModel.isTimeEnabled) viewModel.isTimeEnabled = false }
 
         val difficultyLevel = findViewById<com.google.android.material.slider.Slider>(R.id.difficulty_level)

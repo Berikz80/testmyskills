@@ -49,6 +49,8 @@ class ActionActivity : AppCompatActivity() {
         val fiftyFifty = findViewById<Button>(R.id.fifty_fifty)
         var fiftyFiftyUsed = true
 
+        val help = findViewById<Button>(R.id.help)
+        var helpUsed = true
 
         fun visibleButton() {
             answerA.visibility = View.VISIBLE
@@ -144,7 +146,9 @@ class ActionActivity : AppCompatActivity() {
                 viewModel.points-=50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
-
+        help.setOnClickListener { help(viewModel.questions[viewModel.currentQuestion].rightAnswer)
+        helpUsed = false
+            supportFragmentManager.beginTransaction().replace(R.id.linearLayout2,HelpFragment()).commit()}
 
     }
 
@@ -245,7 +249,32 @@ class ActionActivity : AppCompatActivity() {
         }
         return "..."
     }
+private fun help(right: Int){
+    when (viewModel.questions[viewModel.currentQuestion].rightAnswer ){
+        0-> { viewModel.percentageOfAAnswer = (50..80).random()
+        viewModel.percentageOfBAnswer=(0..100-viewModel.percentageOfAAnswer).random()
+        viewModel.percentageOfCAnswer=(0..100-viewModel.percentageOfAAnswer-viewModel.percentageOfBAnswer).random()
+            viewModel.percentageOfDAnswer=(0..100-viewModel.percentageOfAAnswer-viewModel.percentageOfBAnswer-viewModel.percentageOfCAnswer).random()}
+        1->    {
+            viewModel.percentageOfBAnswer=(50..80).random()
+            viewModel.percentageOfAAnswer = (0..100-viewModel.percentageOfBAnswer).random()
+            viewModel.percentageOfCAnswer=(0..100-viewModel.percentageOfAAnswer-viewModel.percentageOfBAnswer).random()
+            viewModel.percentageOfDAnswer=(0..100-viewModel.percentageOfAAnswer-viewModel.percentageOfBAnswer-viewModel.percentageOfCAnswer).random()}
+        2-> {
+            viewModel.percentageOfCAnswer=(50..80).random()
+            viewModel.percentageOfAAnswer = (0..100-viewModel.percentageOfCAnswer).random()
+           viewModel.percentageOfBAnswer=(0..100-viewModel.percentageOfCAnswer-viewModel.percentageOfAAnswer).random()
+            viewModel.percentageOfDAnswer=(0..100-viewModel.percentageOfAAnswer-viewModel.percentageOfBAnswer-viewModel.percentageOfCAnswer).random()}
+        3-> {
+            viewModel.percentageOfDAnswer=(50..80).random()
+            viewModel.percentageOfAAnswer = (0..100-viewModel.percentageOfDAnswer).random()
+            viewModel.percentageOfBAnswer=(0..100-viewModel.percentageOfDAnswer-viewModel.percentageOfAAnswer).random()
+            viewModel.percentageOfCAnswer=(0..100-viewModel.percentageOfDAnswer-viewModel.percentageOfBAnswer-viewModel.percentageOfAAnswer).random()
 
+
+           }
+    }
+}
     private fun fiftyFifty(right: Int) {
         val answerA = findViewById<Button>(R.id.button_a)
         val answerB = findViewById<Button>(R.id.button_b)
@@ -296,5 +325,6 @@ class ActionActivity : AppCompatActivity() {
         }
 
     }
+
 
 }
