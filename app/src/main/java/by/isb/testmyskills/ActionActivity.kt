@@ -27,6 +27,7 @@ class ActionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_action)
 
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
+
         with(viewModel) {
             name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
@@ -35,6 +36,7 @@ class ActionActivity : AppCompatActivity() {
         }
 
         readQuestionsFromFile()
+
         val time = findViewById<TextView>(R.id.timer)
 
         val answerButtons = arrayOf(
@@ -93,7 +95,6 @@ class ActionActivity : AppCompatActivity() {
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
-
         fiftyFifty.setOnClickListener {
             if (fiftyFiftyUsed) {
                 fiftyFifty(viewModel.questions[viewModel.currentQuestion].rightAnswer)
@@ -103,7 +104,6 @@ class ActionActivity : AppCompatActivity() {
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
     }
-
 
     private fun nextQuestion() {
 
@@ -120,7 +120,6 @@ class ActionActivity : AppCompatActivity() {
                 }
                 .show()
             return
-
         }
 
         viewModel.currentQuestion++
@@ -137,7 +136,7 @@ class ActionActivity : AppCompatActivity() {
 
         for (i in 0..3) {
             answerButtons[i].visibility = View.VISIBLE
-            answerButtons[i].text = viewModel.questions[curr].answers[0]
+            answerButtons[i].text = viewModel.questions[curr].answers[i]
         }
 
         val pointsText = findViewById<TextView>(R.id.points)
@@ -150,7 +149,6 @@ class ActionActivity : AppCompatActivity() {
 
         viewModel.stopTimer()
         viewModel.startTimer()
-
     }
 
     private fun readQuestionsFromFile() {
@@ -184,10 +182,8 @@ class ActionActivity : AppCompatActivity() {
                     right
                 )
             )
-
             eachline = bufferedReader.readLine()
         }
-
         viewModel.questions.shuffle()
     }
 
@@ -250,9 +246,6 @@ class ActionActivity : AppCompatActivity() {
                     answerB.visibility = View.INVISIBLE
                 }
             }
-
         }
-
     }
-
 }
