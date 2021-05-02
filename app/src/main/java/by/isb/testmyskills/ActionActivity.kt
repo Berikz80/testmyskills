@@ -35,7 +35,7 @@ class ActionActivity : AppCompatActivity() {
             maxTime = intent.getIntExtra("timer", 0)
         }
 
-        readQuestionsFromFile()
+        readQuestionsFromFile(viewModel.complexity)
 
         val time = findViewById<TextView>(R.id.timer)
 
@@ -151,7 +151,7 @@ class ActionActivity : AppCompatActivity() {
         viewModel.startTimer()
     }
 
-    private fun readQuestionsFromFile() {
+    private fun readQuestionsFromFile(difficulty: Int) {
 
         val inputStream: InputStream = resources.openRawResource(R.raw.questions)
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
@@ -159,29 +159,32 @@ class ActionActivity : AppCompatActivity() {
         while (eachline != null) {
             val strings = eachline.split(";".toRegex()).toTypedArray()
 
-            val answers = arrayOf(
-                strings[2],
-                strings[3],
-                strings[4],
-                strings[5]
-            )
-            answers.shuffle()
-            var right = 0
-            for (i in answers.indices) {
-                if (answers[i] == strings[2]) {
-                    right = i
-                    break
-                }
-            }
+            if ((strings.size > 5) && (strings[0].toInt() <= difficulty)) {
 
-            viewModel.questions.add(
-                Question(
-                    strings[0].toInt(),
-                    strings[1],
-                    answers,
-                    right
+                val answers = arrayOf(
+                    strings[2],
+                    strings[3],
+                    strings[4],
+                    strings[5]
                 )
-            )
+                answers.shuffle()
+                var right = 0
+                for (i in answers.indices) {
+                    if (answers[i] == strings[2]) {
+                        right = i
+                        break
+                    }
+                }
+
+                viewModel.questions.add(
+                    Question(
+                        strings[0].toInt(),
+                        strings[1],
+                        answers,
+                        right
+                    )
+                )
+            }
             eachline = bufferedReader.readLine()
         }
         viewModel.questions.shuffle()

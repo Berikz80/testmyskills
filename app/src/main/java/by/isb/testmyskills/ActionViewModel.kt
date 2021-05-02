@@ -1,13 +1,8 @@
 package by.isb.testmyskills
 
-import android.R
 import android.os.CountDownTimer
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
 
 class ActionViewModel : ViewModel() {
 
@@ -27,7 +22,6 @@ class ActionViewModel : ViewModel() {
             override fun onTick(millisUntilFinished: Long) {
                 timeIsLeft.value = (millisUntilFinished / 1000).toInt()
             }
-
             override fun onFinish() {
                 cancel()
             }
