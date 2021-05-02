@@ -64,7 +64,7 @@ class ActionActivity : AppCompatActivity() {
             if (it < 11) time.setTextColor(Color.RED)
             else time.setTextColor(Color.GRAY)
             if (it == 0) {
-                Toast.makeText(this, "Time is out. Next question", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.time_is_out), Toast.LENGTH_LONG).show()
                 nextQuestion()
             }
         }
@@ -102,8 +102,6 @@ class ActionActivity : AppCompatActivity() {
                 viewModel.points -= 50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
-
-
     }
 
 
@@ -125,27 +123,22 @@ class ActionActivity : AppCompatActivity() {
 
         }
 
-
         viewModel.currentQuestion++
         val questionText = findViewById<TextView>(R.id.text_question)
-        val answerA = findViewById<Button>(R.id.button_a)
-        val answerB = findViewById<Button>(R.id.button_b)
-        val answerC = findViewById<Button>(R.id.button_c)
-        val answerD = findViewById<Button>(R.id.button_d)
 
-        answerA.visibility = View.VISIBLE
-        answerB.visibility = View.VISIBLE
-        answerC.visibility = View.VISIBLE
-        answerD.visibility = View.VISIBLE
-
-
+        val answerButtons = arrayOf(
+            findViewById<Button>(R.id.button_a),
+            findViewById<Button>(R.id.button_b),
+            findViewById<Button>(R.id.button_c),
+            findViewById<Button>(R.id.button_d)
+        )
         val curr = viewModel.currentQuestion
         questionText.text = viewModel.questions[curr].question
 
-        answerA.text = viewModel.questions[curr].answers[0]
-        answerB.text = viewModel.questions[curr].answers[1]
-        answerC.text = viewModel.questions[curr].answers[2]
-        answerD.text = viewModel.questions[curr].answers[3]
+        for (i in 0..3) {
+            answerButtons[i].visibility = View.VISIBLE
+            answerButtons[i].text = viewModel.questions[curr].answers[0]
+        }
 
         val pointsText = findViewById<TextView>(R.id.points)
         pointsText.text = viewModel.points.toString()
