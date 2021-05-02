@@ -31,7 +31,7 @@ class ActionActivity : AppCompatActivity() {
             name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
-            maxTime =  intent.getIntExtra("timer", 0)
+            maxTime = intent.getIntExtra("timer", 0)
         }
 
 
@@ -44,10 +44,10 @@ class ActionActivity : AppCompatActivity() {
         val answerD = findViewById<Button>(R.id.button_d)
 
         viewModel.timeIsLeft.observe(this) {
-            time.text = it?.toString()+getString(R.string.seconds)
-            if (it<11) time.setTextColor(Color.RED)
+            time.text = it?.toString() + getString(R.string.seconds)
+            if (it < 11) time.setTextColor(Color.RED)
             else time.setTextColor(Color.GRAY)
-            if (it==0) {
+            if (it == 0) {
                 Toast.makeText(this, "Time is out. Next question", Toast.LENGTH_LONG).show()
                 nextQuestion()
             }
@@ -58,14 +58,6 @@ class ActionActivity : AppCompatActivity() {
 
         val fiftyFifty = findViewById<Button>(R.id.fifty_fifty)
         var fiftyFiftyUsed = true
-
-
-        fun visibleButton() {
-            answerA.visibility = View.VISIBLE
-            answerB.visibility = View.VISIBLE
-            answerC.visibility = View.VISIBLE
-            answerD.visibility = View.VISIBLE
-        }
 
         nextQuestion()
 
@@ -79,7 +71,6 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerA.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
                 }, 400)
 
         }
@@ -93,7 +84,6 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerB.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
                 }, 400)
 
         }
@@ -107,7 +97,6 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerC.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
                 }, 400)
 
         }
@@ -121,7 +110,6 @@ class ActionActivity : AppCompatActivity() {
                 .postDelayed({
                     answerD.setBackgroundColor(Color.WHITE)
                     nextQuestion()
-                    visibleButton()
                 }, 400)
 
         }
@@ -185,6 +173,11 @@ class ActionActivity : AppCompatActivity() {
         val answerB = findViewById<Button>(R.id.button_b)
         val answerC = findViewById<Button>(R.id.button_c)
         val answerD = findViewById<Button>(R.id.button_d)
+
+        answerA.visibility = View.VISIBLE
+        answerB.visibility = View.VISIBLE
+        answerC.visibility = View.VISIBLE
+        answerD.visibility = View.VISIBLE
 
 
         val curr = viewModel.currentQuestion
