@@ -34,14 +34,30 @@ class ActionActivity : AppCompatActivity() {
             maxTime = intent.getIntExtra("timer", 0)
         }
 
-
         readQuestionsFromFile()
         val time = findViewById<TextView>(R.id.timer)
-        val questionText = findViewById<TextView>(R.id.text_question)
-        val answerA = findViewById<Button>(R.id.button_a)
-        val answerB = findViewById<Button>(R.id.button_b)
-        val answerC = findViewById<Button>(R.id.button_c)
-        val answerD = findViewById<Button>(R.id.button_d)
+
+        val answerButtons = arrayOf(
+            findViewById<Button>(R.id.button_a),
+            findViewById<Button>(R.id.button_b),
+            findViewById<Button>(R.id.button_c),
+            findViewById<Button>(R.id.button_d)
+        )
+
+        for (i in 0..3) {
+            answerButtons[i].setOnClickListener {
+                if (viewModel.questions[viewModel.currentQuestion].rightAnswer == i) {
+                    viewModel.points += 100
+                    answerButtons[i].setBackgroundColor(Color.GREEN)
+                } else answerButtons[i].setBackgroundColor(Color.RED)
+
+                android.os.Handler()
+                    .postDelayed({
+                        answerButtons[i].setBackgroundColor(Color.WHITE)
+                        nextQuestion()
+                    }, 400)
+            }
+        }
 
         viewModel.timeIsLeft.observe(this) {
             time.text = it?.toString() + getString(R.string.seconds)
@@ -60,62 +76,6 @@ class ActionActivity : AppCompatActivity() {
         var fiftyFiftyUsed = true
 
         nextQuestion()
-
-        answerA.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 0) {
-                viewModel.points += 100
-                answerA.setBackgroundColor(Color.GREEN)
-            } else answerA.setBackgroundColor(Color.RED)
-
-            android.os.Handler()
-                .postDelayed({
-                    answerA.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                }, 400)
-
-        }
-
-        answerB.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 1) {
-                viewModel.points += 100
-                answerB.setBackgroundColor(Color.GREEN)
-            } else answerB.setBackgroundColor(Color.RED)
-            android.os.Handler()
-                .postDelayed({
-                    answerB.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                }, 400)
-
-        }
-
-        answerC.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 2) {
-                viewModel.points += 100
-                answerC.setBackgroundColor(Color.GREEN)
-            } else answerC.setBackgroundColor(Color.RED)
-            android.os.Handler()
-                .postDelayed({
-                    answerC.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                }, 400)
-
-        }
-
-        answerD.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 3) {
-                viewModel.points += 100
-                answerD.setBackgroundColor(Color.GREEN)
-            } else answerD.setBackgroundColor(Color.RED)
-            android.os.Handler()
-                .postDelayed({
-                    answerD.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                }, 400)
-
-        }
-
-
-
 
         friendHelp.setOnClickListener {
             if (friendHelpUsed) {
@@ -148,7 +108,6 @@ class ActionActivity : AppCompatActivity() {
 
 
     private fun nextQuestion() {
-
 
         if (viewModel.currentQuestion == viewModel.questionsCount) {
             MaterialAlertDialogBuilder(this)
