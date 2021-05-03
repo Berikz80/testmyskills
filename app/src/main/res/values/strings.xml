@@ -25,5 +25,6 @@
     <string name="used">Used!</string>
     <string name="seconds">s</string>
     <string name="time_for_question_in_seconds">Time for question in seconds</string>
+    <string name="time_is_out">Time is out. Next question</string>
 
 </resources>

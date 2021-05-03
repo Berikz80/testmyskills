@@ -27,28 +27,46 @@ class ActionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_action)
 
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
+
         with(viewModel) {
             name = intent.getStringExtra("name") ?: "User"
             complexity = intent.getIntExtra("difficulty", 3)
             questionsCount = intent.getIntExtra("questions", 10)
-            maxTime =  intent.getIntExtra("timer", 0)
+            maxTime = intent.getIntExtra("timer", 0)
         }
 
+        readQuestionsFromFile(viewModel.complexity)
 
-        readQuestionsFromFile()
         val time = findViewById<TextView>(R.id.timer)
-        val questionText = findViewById<TextView>(R.id.text_question)
-        val answerA = findViewById<Button>(R.id.button_a)
-        val answerB = findViewById<Button>(R.id.button_b)
-        val answerC = findViewById<Button>(R.id.button_c)
-        val answerD = findViewById<Button>(R.id.button_d)
+
+        val answerButtons = arrayOf(
+            findViewById<Button>(R.id.button_a),
+            findViewById<Button>(R.id.button_b),
+            findViewById<Button>(R.id.button_c),
+            findViewById<Button>(R.id.button_d)
+        )
+
+        for (i in 0..3) {
+            answerButtons[i].setOnClickListener {
+                if (viewModel.questions[viewModel.currentQuestion].rightAnswer == i) {
+                    viewModel.points += 100
+                    answerButtons[i].setBackgroundColor(Color.GREEN)
+                } else answerButtons[i].setBackgroundColor(Color.RED)
+
+                android.os.Handler()
+                    .postDelayed({
+                        answerButtons[i].setBackgroundColor(Color.WHITE)
+                        nextQuestion()
+                    }, 400)
+            }
+        }
 
         viewModel.timeIsLeft.observe(this) {
-            time.text = it?.toString()+getString(R.string.seconds)
-            if (it<11) time.setTextColor(Color.RED)
+            time.text = it?.toString() + getString(R.string.seconds)
+            if (it < 11) time.setTextColor(Color.RED)
             else time.setTextColor(Color.GRAY)
-            if (it==0) {
-                Toast.makeText(this, "Time is out. Next question", Toast.LENGTH_LONG).show()
+            if (it == 0) {
+                Toast.makeText(this, getString(R.string.time_is_out), Toast.LENGTH_LONG).show()
                 nextQuestion()
             }
         }
@@ -59,75 +77,7 @@ class ActionActivity : AppCompatActivity() {
         val fiftyFifty = findViewById<Button>(R.id.fifty_fifty)
         var fiftyFiftyUsed = true
 
-
-        fun visibleButton() {
-            answerA.visibility = View.VISIBLE
-            answerB.visibility = View.VISIBLE
-            answerC.visibility = View.VISIBLE
-            answerD.visibility = View.VISIBLE
-        }
-
         nextQuestion()
-
-        answerA.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 0) {
-                viewModel.points += 100
-                answerA.setBackgroundColor(Color.GREEN)
-            } else answerA.setBackgroundColor(Color.RED)
-
-            android.os.Handler()
-                .postDelayed({
-                    answerA.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                    visibleButton()
-                }, 400)
-
-        }
-
-        answerB.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 1) {
-                viewModel.points += 100
-                answerB.setBackgroundColor(Color.GREEN)
-            } else answerB.setBackgroundColor(Color.RED)
-            android.os.Handler()
-                .postDelayed({
-                    answerB.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                    visibleButton()
-                }, 400)
-
-        }
-
-        answerC.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 2) {
-                viewModel.points += 100
-                answerC.setBackgroundColor(Color.GREEN)
-            } else answerC.setBackgroundColor(Color.RED)
-            android.os.Handler()
-                .postDelayed({
-                    answerC.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                    visibleButton()
-                }, 400)
-
-        }
-
-        answerD.setOnClickListener {
-            if (viewModel.questions[viewModel.currentQuestion].rightAnswer == 3) {
-                viewModel.points += 100
-                answerD.setBackgroundColor(Color.GREEN)
-            } else answerD.setBackgroundColor(Color.RED)
-            android.os.Handler()
-                .postDelayed({
-                    answerD.setBackgroundColor(Color.WHITE)
-                    nextQuestion()
-                    visibleButton()
-                }, 400)
-
-        }
-
-
-
 
         friendHelp.setOnClickListener {
             if (friendHelpUsed) {
@@ -145,7 +95,6 @@ class ActionActivity : AppCompatActivity() {
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
 
-
         fiftyFifty.setOnClickListener {
             if (fiftyFiftyUsed) {
                 fiftyFifty(viewModel.questions[viewModel.currentQuestion].rightAnswer)
@@ -154,13 +103,9 @@ class ActionActivity : AppCompatActivity() {
                 viewModel.points -= 50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
         }
-
-
     }
 
-
     private fun nextQuestion() {
-
 
         if (viewModel.currentQuestion == viewModel.questionsCount) {
             MaterialAlertDialogBuilder(this)
@@ -175,25 +120,24 @@ class ActionActivity : AppCompatActivity() {
                 }
                 .show()
             return
-
         }
-
 
         viewModel.currentQuestion++
         val questionText = findViewById<TextView>(R.id.text_question)
-        val answerA = findViewById<Button>(R.id.button_a)
-        val answerB = findViewById<Button>(R.id.button_b)
-        val answerC = findViewById<Button>(R.id.button_c)
-        val answerD = findViewById<Button>(R.id.button_d)
 
-
+        val answerButtons = arrayOf(
+            findViewById<Button>(R.id.button_a),
+            findViewById<Button>(R.id.button_b),
+            findViewById<Button>(R.id.button_c),
+            findViewById<Button>(R.id.button_d)
+        )
         val curr = viewModel.currentQuestion
         questionText.text = viewModel.questions[curr].question
 
-        answerA.text = viewModel.questions[curr].answers[0]
-        answerB.text = viewModel.questions[curr].answers[1]
-        answerC.text = viewModel.questions[curr].answers[2]
-        answerD.text = viewModel.questions[curr].answers[3]
+        for (i in 0..3) {
+            answerButtons[i].visibility = View.VISIBLE
+            answerButtons[i].text = viewModel.questions[curr].answers[i]
+        }
 
         val pointsText = findViewById<TextView>(R.id.points)
         pointsText.text = viewModel.points.toString()
@@ -205,10 +149,9 @@ class ActionActivity : AppCompatActivity() {
 
         viewModel.stopTimer()
         viewModel.startTimer()
-
     }
 
-    private fun readQuestionsFromFile() {
+    private fun readQuestionsFromFile(difficulty: Int) {
 
         val inputStream: InputStream = resources.openRawResource(R.raw.questions)
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
@@ -216,33 +159,34 @@ class ActionActivity : AppCompatActivity() {
         while (eachline != null) {
             val strings = eachline.split(";".toRegex()).toTypedArray()
 
-            val answers = arrayOf(
-                strings[2],
-                strings[3],
-                strings[4],
-                strings[5]
-            )
-            answers.shuffle()
-            var right = 0
-            for (i in answers.indices) {
-                if (answers[i] == strings[2]) {
-                    right = i
-                    break
-                }
-            }
+            if ((strings.size > 5) && (strings[0].toInt() <= difficulty)) {
 
-            viewModel.questions.add(
-                Question(
-                    strings[0].toInt(),
-                    strings[1],
-                    answers,
-                    right
+                val answers = arrayOf(
+                    strings[2],
+                    strings[3],
+                    strings[4],
+                    strings[5]
                 )
-            )
+                answers.shuffle()
+                var right = 0
+                for (i in answers.indices) {
+                    if (answers[i] == strings[2]) {
+                        right = i
+                        break
+                    }
+                }
 
+                viewModel.questions.add(
+                    Question(
+                        strings[0].toInt(),
+                        strings[1],
+                        answers,
+                        right
+                    )
+                )
+            }
             eachline = bufferedReader.readLine()
         }
-
         viewModel.questions.shuffle()
     }
 
@@ -305,9 +249,6 @@ class ActionActivity : AppCompatActivity() {
                     answerB.visibility = View.INVISIBLE
                 }
             }
-
         }
-
     }
-
 }
