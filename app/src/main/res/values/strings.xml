@@ -23,7 +23,9 @@
     <string name="friend_answer_5">Hmm... Good question... I think the answer is </string>
     <string name="friend_answer_6">Hmm... Good question... I think the answer is </string>
     <string name="used">Used!</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="seconds">s</string>
+    <string name="time_for_question_in_seconds">Time for question in seconds</string>
+    <string name="time_is_out">Time is out. Next question</string>
 
 </resources>
