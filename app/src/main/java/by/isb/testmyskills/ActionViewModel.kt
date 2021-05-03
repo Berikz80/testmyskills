@@ -14,6 +14,13 @@ class ActionViewModel : ViewModel() {
     var points: Int = 0
     var currentQuestion: Int = -1
     val questions: ArrayList<Question> = arrayListOf()
+
+    var timeIsRemaining = MutableLiveData<Int>()
+    var percentageOfAAnswer =1
+    var percentageOfBAnswer =1
+    var percentageOfCAnswer =1
+    var percentageOfDAnswer =1
+
     var timeIsLeft = MutableLiveData<Int>()
     lateinit var countDownTimer: CountDownTimer
 
@@ -32,3 +39,4 @@ class ActionViewModel : ViewModel() {
         if (currentQuestion > 0) countDownTimer.cancel()
     }
 }
+

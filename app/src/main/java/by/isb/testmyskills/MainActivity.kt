@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(ActionViewModel::class.java)
         val startButton = findViewById<Button>(R.id.button_start)
+
         val inputName =
             findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_name)
         val difficultyLevel =
