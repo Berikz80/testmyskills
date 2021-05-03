@@ -204,51 +204,25 @@ class ActionActivity : AppCompatActivity() {
     }
 
     private fun fiftyFifty(right: Int) {
-        val answerA = findViewById<Button>(R.id.button_a)
-        val answerB = findViewById<Button>(R.id.button_b)
-        val answerC = findViewById<Button>(R.id.button_c)
-        val answerD = findViewById<Button>(R.id.button_d)
-        when (right) {
-            0 -> {
-                if (Random().nextBoolean()) {
-                    answerB.visibility = View.INVISIBLE
-                    if (Random().nextBoolean()) answerC.visibility = View.INVISIBLE
-                    else answerD.visibility = View.INVISIBLE
-                } else {
-                    answerC.visibility = View.INVISIBLE
-                    answerD.visibility = View.INVISIBLE
-                }
-            }
-            1 -> {
-                if (Random().nextBoolean()) {
-                    answerA.visibility = View.INVISIBLE
-                    if (Random().nextBoolean()) answerC.visibility = View.INVISIBLE
-                    else answerD.visibility = View.INVISIBLE
-                } else {
-                    answerC.visibility = View.INVISIBLE
-                    answerD.visibility = View.INVISIBLE
-                }
-            }
-            2 -> {
-                if (Random().nextBoolean()) {
-                    answerA.visibility = View.INVISIBLE
-                    if (Random().nextBoolean()) answerB.visibility = View.INVISIBLE
-                    else answerD.visibility = View.INVISIBLE
-                } else {
-                    answerB.visibility = View.INVISIBLE
-                    answerD.visibility = View.INVISIBLE
-                }
-            }
-            3 -> {
-                if (Random().nextBoolean()) {
-                    answerA.visibility = View.INVISIBLE
-                    if (Random().nextBoolean()) answerC.visibility = View.INVISIBLE
-                    else answerB.visibility = View.INVISIBLE
-                } else {
-                    answerC.visibility = View.INVISIBLE
-                    answerB.visibility = View.INVISIBLE
-                }
-            }
+
+        val answerButton = arrayOf(
+        findViewById<Button>(R.id.button_a),
+        findViewById<Button>(R.id.button_b),
+        findViewById<Button>(R.id.button_c),
+        findViewById<Button>(R.id.button_d))
+
+        for(i in answerButton.indices){
+            answerButton[i].visibility = View.INVISIBLE
         }
+        var second = right
+        while(second==right){
+
+            second = Random().nextInt(4)
+        }
+        answerButton[right].visibility = View.VISIBLE
+        answerButton[second].visibility = View.VISIBLE
+
+
+
     }
 }
