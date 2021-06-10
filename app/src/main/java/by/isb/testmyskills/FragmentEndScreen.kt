@@ -26,14 +26,18 @@ class FragmentEndScreen: Fragment() {
         val scoreMark = view.findViewById<TextView>(R.id.score_mark)
 val scoreMarkArray = listOf<String>("try better"," try hard","not bad for beginner","well done","excellent")
         when ((viewModel.points/viewModel.questionsCount)*100){
-                in 0..20 -> percentScore.setTextColor(Color.RED)
-                in 21..40 -> percentScore.setTextColor(Color.RED)
-
-                in 41..60 ->percentScore.setTextColor(Color.rgb(255,69,0))
-
-                    in 61..80 ->percentScore.setTextColor(Color.rgb(255, 255, 0))
-                    in 81..100 -> percentScore.setTextColor(Color.GREEN)
+                in 0..20 -> {percentScore.setTextColor(Color.RED)
+                scoreMark.text= scoreMarkArray[0]}
+                in 21..40 -> {percentScore.setTextColor(Color.RED)
+                    scoreMark.text= scoreMarkArray[1]}
+                in 41..60 ->{percentScore.setTextColor(Color.rgb(255,69,0))
+                    scoreMark.text= scoreMarkArray[2]}
+                    in 61..80 ->{percentScore.setTextColor(Color.rgb(255, 255, 0))
+                        scoreMark.text= scoreMarkArray[3]}
+                    in 81..100 -> {percentScore.setTextColor(Color.GREEN)
+                        scoreMark.text= scoreMarkArray[4]}
             }
+
     }
 
 }
