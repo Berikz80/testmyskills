@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,10 +19,10 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="8dp"
             android:elevation="5dp"
             android:src="@drawable/quiz"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
         <ImageView

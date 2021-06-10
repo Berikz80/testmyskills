@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_200">
+
+    <TextView
+        android:id="@+id/statistic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_double"
+        android:background="@color/teal_700"
+        android:gravity="center"
+        android:elevation="@dimen/margin_double"
+        android:text="Your result:"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="@dimen/margin_double"
+        android:layout_margin="@dimen/margin_normal"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/statistic" >
+
+        <TextView
+            android:id="@+id/percent_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="97%"
+            android:background=
+            android:textSize="64sp"
+            android:textColor="#0FBC20"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/score_mark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BRILLIANT"
+            android:textSize="34sp"
+            android:layout_margin="@dimen/margin_normal"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/margin_normal"
+            android:background="?android:attr/listDivider" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Points:"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/margin_double"/>
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:text="1"
+            android:gravity="center"
+            android:layout_margin="@dimen/margin_normal" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/margin_normal"
+            android:background="?android:attr/listDivider" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:elevation="@dimen/margin_normal"
+        app:layout_constraintBottom_toTopOf="@+id/restart_button"
+        app:layout_constraintEnd_toEndOf="@+id/statistic"
+        app:layout_constraintStart_toStartOf="@+id/statistic"
+        app:layout_constraintTop_toBottomOf="@id/statistic" />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:backgroundTint="@color/teal_800"
+        android:layout_margin="@dimen/margin_double"
+        />
+
+    <Button
+        android:id="@+id/restart_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/restart"
+        app:layout_constraintBottom_toTopOf="@+id/exit_button"
+        android:backgroundTint="@color/teal_800"
+        android:layout_marginHorizontal="@dimen/margin_double"
+        android:layout_marginVertical="@dimen/margin_normal"/>
+
+    
+    
+    
+    
+</androidx.constraintlayout.widget.ConstraintLayout>
