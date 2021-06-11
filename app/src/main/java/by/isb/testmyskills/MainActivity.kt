@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         val timer =
             findViewById<com.google.android.material.slider.Slider>(R.id.timer)
 
-            val intent = Intent(this, ActionActivity::class.java)
         startButton.setOnClickListener {
+            val intent = Intent(this, ActionActivity::class.java)
             intent.putExtra("name", inputName.text.toString())
             intent.putExtra("difficulty", difficultyLevel.value.toInt())
             intent.putExtra("questions", numberQuestions.value.toInt())

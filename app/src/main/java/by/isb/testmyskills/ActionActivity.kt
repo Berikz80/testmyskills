@@ -1,11 +1,15 @@
 package by.isb.testmyskills
 
 import android.graphics.Color
+import android.graphics.Color.red
 import android.os.Bundle
-import android.view.View
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -86,7 +90,6 @@ class ActionActivity : AppCompatActivity() {
                     Snackbar.LENGTH_SHORT
                 ).show()
                 friendHelpUsed = false
-                viewModel.usedHints += 1
                 friendHelp.setBackgroundColor(Color.GRAY)
                 viewModel.points -= 50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
@@ -96,7 +99,6 @@ class ActionActivity : AppCompatActivity() {
             if (fiftyFiftyUsed) {
                 fiftyFifty(viewModel.questions[viewModel.currentQuestion].rightAnswer)
                 fiftyFiftyUsed = false
-                viewModel.usedHints += 1
                 fiftyFifty.setBackgroundColor(Color.GRAY)
                 viewModel.points -= 50
             } else Snackbar.make(it, R.string.used, Snackbar.LENGTH_SHORT).show()
@@ -105,12 +107,18 @@ class ActionActivity : AppCompatActivity() {
 
     private fun nextQuestion() {
 
-
         if (viewModel.currentQuestion == viewModel.questionsCount) {
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.appear, R.anim.disappear)
-                .add(R.id.end_screen_container, FragmentEndScreen())
-                .commit()
+            MaterialAlertDialogBuilder(this)
+                .setTitle(resources.getString(R.string.end_game))
+                .setMessage(resources.getString(R.string.total_score).plus(" ${viewModel.points}"))
+                .setNegativeButton(resources.getString(R.string.exit)) { _, _ ->
+                    super.finish()
+                }
+                .setPositiveButton(resources.getString(R.string.restart)) { _, _ ->
+                    super.finish()
+                    startActivity(intent)
+                }
+                .show()
             return
         }
 
@@ -138,7 +146,6 @@ class ActionActivity : AppCompatActivity() {
         questionCounterText.text = viewModel.currentQuestion.toString()
         val questionNumberText = findViewById<TextView>(R.id.question)
         questionNumberText.text = viewModel.questionsCount.toString()
-
 
         viewModel.stopTimer()
         viewModel.startTimer()
@@ -199,22 +206,22 @@ class ActionActivity : AppCompatActivity() {
     private fun fiftyFifty(right: Int) {
 
         val answerButton = arrayOf(
-            findViewById<Button>(R.id.button_a),
-            findViewById<Button>(R.id.button_b),
-            findViewById<Button>(R.id.button_c),
-            findViewById<Button>(R.id.button_d)
-        )
+        findViewById<Button>(R.id.button_a),
+        findViewById<Button>(R.id.button_b),
+        findViewById<Button>(R.id.button_c),
+        findViewById<Button>(R.id.button_d))
 
-        for (i in answerButton.indices) {
+        for(i in answerButton.indices){
             answerButton[i].visibility = View.INVISIBLE
         }
         var second = right
-        while (second == right) {
+        while(second==right){
 
             second = Random().nextInt(4)
         }
         answerButton[right].visibility = View.VISIBLE
         answerButton[second].visibility = View.VISIBLE
+
 
 
     }
